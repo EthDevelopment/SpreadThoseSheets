@@ -1,17 +1,13 @@
-// components/welcome/RestartButton.tsx
+// components/welcome/HomeButton.js
+
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Button} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-interface SpreadsheetProps {
-  onPress: () => void;
-}
-
-const Spreadsheet: React.FC<SpreadsheetProps> = ({onPress}) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Text style={styles.buttonText}>Create a Spreadsheet</Text>
-    </TouchableOpacity>
-  );
+const HomeButton = ({onPress}) => {
+  const navigation = useNavigation();
+  return <Button title="Home" onPress={() => navigation.navigate('Home')} />;
 };
 
 const styles = StyleSheet.create({
@@ -29,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Spreadsheet;
+export default HomeButton;
