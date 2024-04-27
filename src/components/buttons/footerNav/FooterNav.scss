@@ -1,0 +1,14 @@
+.footerContainer {
+  background-color: green;
+
+  padding: 10px;
+  justify-content: center; // Center content vertically
+  align-items: center; // Center content horizontally
+  position: absolute; // Position the footer at the bottom
+  bottom: 0;
+  width: 100%; // Span the entire width
+}
+
+.footerText {
+  color: white; // Text color
+}

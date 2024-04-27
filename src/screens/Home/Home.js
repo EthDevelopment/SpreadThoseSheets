@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text, Button} from 'react-native';
-import Welcome from '../../components/welcome/Welcome'; // Assuming Welcome.js exists
+import Welcome from '../welcome/Welcome'; // Assuming Welcome.js exists
 import {useNavigation} from '@react-navigation/native';
 import styles from './Home.scss';
-import NavigationButton from '../../components/buttons/NavigationButton';
+import NavigationButton from '../../components/buttons/screenChange/NavigationButton';
 
 const Home = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
-  const [showInput, setShowInput] = useState(true); // Track input visibility
+  const [showInput, setShowInput] = useState(true);
 
   const handleUsernameSubmit = submittedUsername => {
     setUsername(submittedUsername);
-    setShowInput(false); // Hide input after submission
+    setShowInput(false);
   };
 
   return (
@@ -26,13 +26,10 @@ const Home = () => {
             {username},{'\n'} select a utility
           </Text>
           <View>
-            <NavigationButton
-              onPress={() => navigation.navigate('Home')} // Pass navigation function
-              title="Home"
-            />
             <View>
               <NavigationButton
-                onPress={() => navigation.navigate('SpreadsheetScreen')} // Pass navigation function
+                style={styles.navigationButton}
+                onPress={() => navigation.navigate('SpreadsheetScreen')}
                 title="Spreadsheet creator"
               />
             </View>

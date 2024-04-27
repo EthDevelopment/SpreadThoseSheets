@@ -1,9 +1,8 @@
-:root {
-  background-color: red;
+.container {
+  flex: 1; /* Assuming you want the container to fill the screen */
+  color: black;
 }
 
-.App {
-  background-color: black;
+.blackText {
+  color: black;
 }
-
-$primary-color: red;

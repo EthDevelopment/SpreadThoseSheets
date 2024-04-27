@@ -1,0 +1,54 @@
+.welcomeText {
+  color: black;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.text {
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.input {
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 200%; /* Adjust width as needed */
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  color: black;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+}
+
+.button {
+  background-color: green;
+  padding: 15px 10px; /* Vertical and horizontal padding */
+  border-radius: 20px;
+  width: 70%;
+  align-self: center; /* Center the button horizontally */
+}
+
+.buttonText {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.errorText {
+  color: red;
+  font-size: 16px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.errorContainer {
+  position: absolute;
+  bottom: 150px; /* Adjust position as needed */
+  left: 0;
+  right: 0;
+}/*# sourceMappingURL=Welcome.css.map */

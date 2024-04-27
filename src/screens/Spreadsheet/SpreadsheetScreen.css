@@ -1,0 +1,113 @@
+/* General styles */
+.container {
+  background-color: #684436;
+  flex: 1;
+}
+
+/* Section 1 styles */
+.spreadSheetNameInput {
+  flex-direction: row; /* Arrange children side-by-side */
+  align-items: center; /* Align label and input vertically */
+  padding: 10px; /* Optional padding for spacing */
+}
+
+.spreadSheetNameInputLabel {
+  flex: 1; /* Make label take up available space */
+}
+
+/* Other sections (optional) */
+.section2,
+.section3 {
+  /* Add styles for sections 2 and 3 as needed */
+}
+
+/* Adjust padding as needed */
+.centeredView {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.spreadSheetNameInput {
+  /* Existing styles... */
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.spreadSheetNameInput .projectNameReveal {
+  /* New style for the label */
+  text-align: center; /* Center the text horizontally */
+}
+
+.modalView {
+  margin: 20px;
+  background-color: #684436;
+  border-radius: 20px;
+  border-color: white;
+  border-width: 0.25px;
+  padding-top: 30%; /* Adjust padding if necessary */
+  padding-bottom: 30%; /* Adjust padding if necessary */
+  padding-left: 7.5%; /* Adjust padding if necessary */
+  padding-right: 7.5%; /* Adjust padding if necessary */
+  align-items: center;
+  elevation: 5;
+}
+
+.button {
+  border-radius: 20px;
+  padding: 10px;
+  elevation: 2;
+}
+
+.buttonOpen {
+  background-color: green;
+  width: 80%;
+  text-align: center;
+}
+
+.buttonClose {
+  background-color: green;
+  position: absolute; /* Absolute positioning */
+  bottom: 10px; /* Position from bottom with padding */
+  right: 10px; /* Position from right with padding */
+}
+
+.text {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modalText {
+  position: absolute;
+  top: 100%;
+  text-align: center;
+  width: 150;
+  color: white;
+}
+
+.textStyleOpen {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 24px;
+  color: white;
+}
+
+.textStyleClose {
+  text-align: center;
+  color: white;
+}
+
+.projectNameInput {
+  /* Add styles for the input field here */
+  border-width: 1px;
+  border-radius: 20px;
+  border-color: white;
+  border-width: 0.25px;
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 250;
+  text-align: center;
+}/*# sourceMappingURL=SpreadsheetScreen.css.map */

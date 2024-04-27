@@ -1,0 +1,23 @@
+.container {
+  /* Styles for the main input container */
+  margin-top: 10px;
+}
+
+.label {
+  /* Styles for the input label text */
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input {
+  /* Styles for the text input element */
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.errorText {
+  /* Styles for the error message text (inherited from Welcome) */
+  color: red;
+}/*# sourceMappingURL=TextInputWithLabel.css.map */

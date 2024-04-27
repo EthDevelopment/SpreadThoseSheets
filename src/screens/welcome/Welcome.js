@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import NavigationButton from '../buttons/NavigationButton';
+import styles from './Welcome.scss';
 
 const Welcome = ({showWelcome, onUsernameSubmit}) => {
   const [username, setUsername] = useState('');
@@ -15,7 +15,7 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
   const handleUsernameSubmit = () => {
     if (!username.trim()) {
       // Check for empty username after trimming whitespaces
-      setErrorMessage('Please enter your name!');
+      setErrorMessage('You can make one up if you like :) ');
       return; // Prevent submitting empty username
     }
     onUsernameSubmit(username);
@@ -33,13 +33,13 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
           <View>
             <TextInput
               style={styles.input}
-              placeholder="Enter your name"
+              placeholder="What's your name?"
               placeholderTextColor="black"
               onChangeText={text => {
                 setUsername(text);
                 // Check for empty username and set error message if needed
                 if (!text.trim()) {
-                  setErrorMessage('Please enter your name!');
+                  setErrorMessage('You can make one up if you like :)');
                 } else {
                   setErrorMessage(''); // Clear error message if input has content
                 }
@@ -66,57 +66,5 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  welcomeText: {
-    color: 'black',
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  text: {
-    color: 'black',
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  input: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    width: '200%', // Adjust width to take up half the space horizontally
-    padding: 10,
-    marginBottom: 20,
-    borderRadius: 5,
-    color: 'black',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    textAlign: 'center',
-  },
-  button: {
-    backgroundColor: 'blue',
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    borderRadius: 20,
-    width: '75%',
-    alignSelf: 'center', // Center the button horizontally within its container
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  errorContainer: {
-    position: 'absolute',
-    bottom: 150,
-    left: 0,
-    right: 0,
-  },
-});
 
 export default Welcome;

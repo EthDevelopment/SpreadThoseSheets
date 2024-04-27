@@ -1,99 +1,99 @@
-import React from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
+import React, {useState} from 'react';
+
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  TextInput,
+  View,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import HomeButton from '../../components/welcome/HomeButton';
+import FooterNav from '../../components/buttons/footerNav/FooterNav';
+import styles from './SpreadsheetScreen.scss';
 
 const Spreadsheet = () => {
   const navigation = useNavigation();
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [hasShownModal, setHasShownModal] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [projectName, setProjectName] = useState(''); // State to store project name
+
+  const showModalOnFirstRender = () => {
+    if (!hasShownModal) {
+      setIsModalVisible(true);
+      setHasShownModal(true);
+    }
+  };
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+    showModalOnFirstRender(); // Call the function here
+  };
+
+  const handleSaveProject = () => {
+    // Implement logic to save project name (e.g., using an API call)
+    console.log('Project name:', projectName);
+    setModalVisible(false); // Close the modal after saving
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <View style={styles.row}>
-          <View style={styles.columnContainer}>
-            <Text style={styles.label}>Name:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your name"
-              color="black"
-            />
-          </View>
-          <View style={styles.columnContainer}>
-            <Text style={styles.label}>Age:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your age"
-              color="black"
-            />
-          </View>
+      {/* Section 1 (Empty container for customization) */}
+      <View style={styles.spreadSheetNameInput}>
+        {/* ... your existing content */}
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Enter Project Name:</Text>
+                <TextInput
+                  style={styles.projectNameInput}
+                  onChangeText={setProjectName}
+                  value={projectName}
+                  placeholder="Type here"
+                />
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={handleSaveProject}>
+                  <Text style={styles.textStyleClose}>Save Project</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => setModalVisible(true)}>
+            <Text style={styles.textStyleClose}>Click to start</Text>
+          </Pressable>
+
+          {hasShownModal ? null : ( // Only render if modal hasn't been shown
+            <View>{/* Your components that rely on the modal state */}</View>
+          )}
         </View>
-        {/* Create two more rows with input boxes */}
-        {[1, 2].map(index => (
-          <View key={index} style={styles.row}>
-            <View style={styles.columnContainer}>
-              <Text style={styles.label}>{`Name ${index + 1}:`}</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={`Name ${index + 1}`}
-                color="black"
-              />
-            </View>
-            <View style={styles.columnContainer}>
-              <Text style={styles.label}>Age:</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your age"
-                color="black"
-              />
-            </View>
-          </View>
-        ))}
       </View>
-      <HomeButton style={styles.homeButton} />
+      <View style={styles.spreadSheetNameInput}>
+        {/* ... your existing content */}
+        <View style={styles.centeredView}>{/* ... your modal code ... */}</View>
+        {projectName !== '' && ( // Check if projectName has a value
+          <Text style={styles.projectNameReveal}>
+            Your project is called: {projectName}
+          </Text>
+        )}
+      </View>
+
+      <FooterNav onPress={() => navigation.navigate('Home')} title="Home" />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'white', // Add a background color
-  },
-  contentContainer: {
-    flex: 1, // Allow space for content and push down button
-    justifyContent: 'flex-start', // Align content at top
-    alignItems: 'center',
-    marginTop: '15%', // Add top margin (adjust as needed)
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', // Distribute evenly
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  label: {
-    marginBottom: 5, // Adjust spacing if needed
-    color: 'black',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    padding: 8,
-    borderRadius: 5,
-    flex: 1, // Adjust width if needed
-    color: 'black', // Set text color to black
-  },
-  columnContainer: {
-    width: '50%',
-    paddingHorizontal: 5, // Padding on each side
-    justifyContent: 'center', // Center elements vertically
-  },
-  homeButton: {
-    position: 'absolute', // Position button at bottom
-    bottom: '25%', // Adjust from bottom (25% from screen height)
-    alignSelf: 'center', // Center button horizontally
-  },
-});
 
 export default Spreadsheet;
