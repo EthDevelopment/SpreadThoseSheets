@@ -1,0 +1,23 @@
+// Assuming your SCSS file is named Home.scss
+
+.container {
+  flex: 1;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcomeText {
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.buttonContainer {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}

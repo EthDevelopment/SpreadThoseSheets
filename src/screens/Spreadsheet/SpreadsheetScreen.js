@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import HomeButton from '../components/welcome/HomeButton';
+import HomeButton from '../../components/welcome/HomeButton';
 
 const Spreadsheet = () => {
   const navigation = useNavigation();

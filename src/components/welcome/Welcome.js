@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import NavigationButton from '../buttons/NavigationButton';
 
 const Welcome = ({showWelcome, onUsernameSubmit}) => {
   const [username, setUsername] = useState('');

@@ -1,0 +1,11 @@
+.navigationButton {
+  background-color: green;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.navigationButtonText {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+}/*# sourceMappingURL=NavigationButton.css.map */
