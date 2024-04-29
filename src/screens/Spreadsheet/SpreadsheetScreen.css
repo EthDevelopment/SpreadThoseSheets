@@ -110,4 +110,10 @@
   margin-bottom: 10px;
   width: 250;
   text-align: center;
+}
+
+.projectNameReveal {
+  position: absolute;
+  width: 200;
+  text-align: center;
 }/*# sourceMappingURL=SpreadsheetScreen.css.map */
