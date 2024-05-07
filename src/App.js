@@ -4,11 +4,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './screens/Home/Home';
 import Spreadsheet from './screens/Spreadsheet/SpreadsheetScreen';
 import styles from './App.scss';
+import {Dotenv} from 'react-native-dotenv';
 
 // import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 const Stack = createNativeStackNavigator();
 // const Tab = createBottomTabNavigator();
+
+// Dotenv.config({path: '../.env'}); // Load environment variables from .env file
 
 const App = () => {
   return (

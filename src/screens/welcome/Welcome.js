@@ -6,7 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import styles from './Welcome.scss';
+import styles from './Welcome.scss'; // Assuming styles are defined in Welcome.scss
+
+// Assuming Login component is located at '../../components/login/Login'
+import Login from '../../components/login/Login';
 
 const Welcome = ({showWelcome, onUsernameSubmit}) => {
   const [username, setUsername] = useState('');
@@ -63,6 +66,9 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
           <Text style={styles.errorText}>{errorMessage}</Text>
         </View>
       )}
+
+      {/* Login component displayed permanently below */}
+      <Login />
     </>
   );
 };
