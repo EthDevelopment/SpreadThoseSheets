@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 import {
   Alert,
   Modal,
@@ -16,43 +15,67 @@ import styles from './SpreadsheetScreen.scss';
 const Spreadsheet = () => {
   const navigation = useNavigation();
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // State variables
+  const [isStartModalVisible, setIsStartModalVisible] = useState(false);
   const [hasShownModal, setHasShownModal] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [projectName, setProjectName] = useState(''); // State to store project name
+  const [projectName, setProjectName] = useState('');
+  const [buttonPressed, setButtonPressed] = useState(false);
+  const [isHeaderModalVisible, setIsHeaderModalVisible] = useState(false);
+
+  // Functions related to the first button
+  const toggleModal = () => {
+    if (!buttonPressed) {
+      setIsStartModalVisible(!isStartModalVisible);
+      showModalOnFirstRender(); // Call the function here
+    }
+  };
 
   const showModalOnFirstRender = () => {
     if (!hasShownModal) {
-      setIsModalVisible(true);
+      setIsStartModalVisible(true);
       setHasShownModal(true);
     }
   };
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-    showModalOnFirstRender(); // Call the function here
+  const handleSaveProject = () => {
+    if (validateProjectName(projectName)) {
+      console.log('Project name:', projectName);
+      setIsStartModalVisible(false);
+      setButtonPressed(true); // Set button pressed state
+    } else {
+      Alert.alert('Error', 'Project name must be between 2 and 10 characters.');
+    }
   };
 
-  const handleSaveProject = () => {
-    // Implement logic to save project name (e.g., using an API call)
-    console.log('Project name:', projectName);
-    setModalVisible(false); // Close the modal after saving
+  const handleRestart = () => {
+    setProjectName(''); // Clear project name
+    setButtonPressed(false); // Reset button state
+  };
+
+  const validateProjectName = name => {
+    return name.length >= 2 && name.length <= 10;
+  };
+
+  // Functions related to the second button
+  const handleSetHeaders = () => {
+    setIsHeaderModalVisible(true);
+  };
+
+  // Footer navigation
+  const handleFooterNavigation = () => {
+    navigation.navigate('Home');
   };
 
   return (
     <View style={styles.container}>
-      {/* Section 1 (Empty container for customization) */}
+      {/* Section 1: First button */}
       <View style={styles.spreadSheetNameInput}>
-        {/* ... your existing content */}
         <View style={styles.centeredView}>
           <Modal
             animationType="slide"
             transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-              setModalVisible(!modalVisible);
-            }}>
+            visible={isStartModalVisible}
+            onRequestClose={() => setIsStartModalVisible(false)}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>Enter Project Name:</Text>
@@ -72,26 +95,37 @@ const Spreadsheet = () => {
           </Modal>
           <Pressable
             style={[styles.button, styles.buttonOpen]}
-            onPress={() => setModalVisible(true)}>
-            <Text style={styles.textStyleClose}>Click to start</Text>
+            onPress={buttonPressed ? handleRestart : toggleModal}>
+            <Text style={styles.textStyleClose}>
+              {buttonPressed ? 'Restart' : 'Click to start'}
+            </Text>
           </Pressable>
-
-          {hasShownModal ? null : ( // Only render if modal hasn't been shown
+          {!isStartModalVisible && projectName !== '' && (
+            <View style={styles.spreadSheetNameInput}>
+              <Text style={styles.projectNameReveal}>
+                Your project is called: {projectName}
+              </Text>
+            </View>
+          )}
+          {hasShownModal ? null : (
             <View>{/* Your components that rely on the modal state */}</View>
           )}
         </View>
       </View>
-      <View style={styles.spreadSheetNameInput}>
-        {/* ... your existing content */}
-        <View style={styles.centeredView}>{/* ... your modal code ... */}</View>
-        {projectName !== '' && ( // Check if projectName has a value
-          <Text style={styles.projectNameReveal}>
-            Your project is called: {projectName}
-          </Text>
-        )}
-      </View>
 
-      <FooterNav onPress={() => navigation.navigate('Home')} title="Home" />
+      {/* Section 2: Second button */}
+      {!isStartModalVisible && projectName !== '' && (
+        <View style={styles.spreadSheetNameInput}>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={handleSetHeaders}>
+            <Text style={styles.textStyleClose}>Set Headers for Columns</Text>
+          </Pressable>
+        </View>
+      )}
+
+      {/* Section 3: Footer navigation */}
+      <FooterNav onPress={handleFooterNavigation} title="Home" />
     </View>
   );
 };
