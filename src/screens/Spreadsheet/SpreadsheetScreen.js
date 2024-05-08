@@ -30,15 +30,14 @@ const Spreadsheet = () => {
   };
 
   const handleRestart = () => {
+    console.log('Project Name:', projectName);
+    console.log('Column Headers:', columnHeaders);
+    console.log('Column Amount:', numberOfColumns);
+
     setProjectName('');
     setButtonPressed(false);
     setIsModalColumnAmountVisible(false);
     setIsHeaderModalVisible(false);
-    setColumnHeaders(Array(numberOfColumns).fill('')); // Reset column headers
-    console.log('You have pressed Reset');
-    console.log('Project Name:', projectName);
-    console.log('Column Headers:', columnHeaders);
-    console.log('Column Amount:', numberOfColumns);
   };
 
   const toggleModal = () => {
@@ -140,7 +139,6 @@ const Spreadsheet = () => {
         visible={isModalColumnAmountVisible}
         setVisible={setIsModalColumnAmountVisible}
         handleSaveColumnCount={handleSaveColumnCount} // Pass handleSaveColumnCount as a prop
-        handleRestart={handleRestart}
       />
 
       {/* Section 3: Set Modal Headers */}
@@ -160,7 +158,6 @@ const Spreadsheet = () => {
         setVisible={setIsHeaderModalVisible}
         handleSaveHeaders={handleSaveHeaders}
         numberOfColumns={numberOfColumns} // Pass number of columns as prop
-        handleRestart={handleRestart}
       />
 
       {/* Section 4: Footer navigation */}
