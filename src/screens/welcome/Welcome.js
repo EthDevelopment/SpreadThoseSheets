@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -14,8 +15,8 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
 
   const handleUsernameSubmit = () => {
     if (!username.trim()) {
-      // Check for empty username after trimming whitespaces
-      setErrorMessage('You can make one up if you like :) ');
+      Alert.alert('Error', 'Enter a username');
+
       return; // Prevent submitting empty username
     }
     onUsernameSubmit(username);
@@ -39,7 +40,6 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
                 setUsername(text);
                 // Check for empty username and set error message if needed
                 if (!text.trim()) {
-                  setErrorMessage('You can make one up if you like :)');
                 } else {
                   setErrorMessage(''); // Clear error message if input has content
                 }
