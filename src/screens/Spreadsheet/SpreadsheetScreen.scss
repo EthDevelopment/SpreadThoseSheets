@@ -44,7 +44,7 @@ $button-elevation: 2;
 $buttonOpen-background-color: green;
 $buttonClose-background-color: green;
 
-$text-color: green;
+$text-color: white;
 $text-weight: bold;
 $text-align: center;
 
@@ -64,6 +64,7 @@ $text-align: center;
   .projectNameReveal {
     /* New style for the label */
     text-align: center; /* Center the text horizontally */
+    color: white;
   }
 }
 .modalView {

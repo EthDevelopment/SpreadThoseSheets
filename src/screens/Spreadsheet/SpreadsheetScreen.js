@@ -1,41 +1,19 @@
+// SpreadsheetScreen.js
 import React, {useState} from 'react';
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  TextInput,
-  View,
-} from 'react-native';
+import {Alert, Text, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FooterNav from '../../components/buttons/footerNav/FooterNav';
+import StartModal from './components/StartModal';
+import HeaderModal from './components/headerModal/HeaderModal';
+import ColumnAmountModal from './components/ColumnAmountModal';
 import styles from './SpreadsheetScreen.scss';
 
 const Spreadsheet = () => {
   const navigation = useNavigation();
-
-  // State variables
+  // Modal 1
   const [isStartModalVisible, setIsStartModalVisible] = useState(false);
-  const [hasShownModal, setHasShownModal] = useState(false);
+  const [hasShownStartModal, setHasShownStartModal] = useState(false);
   const [projectName, setProjectName] = useState('');
-  const [buttonPressed, setButtonPressed] = useState(false);
-  const [isHeaderModalVisible, setIsHeaderModalVisible] = useState(false);
-
-  // Functions related to the first button
-  const toggleModal = () => {
-    if (!buttonPressed) {
-      setIsStartModalVisible(!isStartModalVisible);
-      showModalOnFirstRender(); // Call the function here
-    }
-  };
-
-  const showModalOnFirstRender = () => {
-    if (!hasShownModal) {
-      setIsStartModalVisible(true);
-      setHasShownModal(true);
-    }
-  };
 
   const handleSaveProject = () => {
     if (validateProjectName(projectName)) {
@@ -47,21 +25,67 @@ const Spreadsheet = () => {
     }
   };
 
-  const handleRestart = () => {
-    setProjectName(''); // Clear project name
-    setButtonPressed(false); // Reset button state
-  };
-
   const validateProjectName = name => {
     return name.length >= 2 && name.length <= 10;
   };
 
-  // Functions related to the second button
+  const handleRestart = () => {
+    setProjectName('');
+    setButtonPressed(false);
+    setIsModalColumnAmountVisible(false);
+    setIsHeaderModalVisible(false);
+    setColumnHeaders(Array(numberOfColumns).fill('')); // Reset column headers
+    console.log('You have pressed Reset');
+    console.log('Project Name:', projectName);
+    console.log('Column Headers:', columnHeaders);
+    console.log('Column Amount:', numberOfColumns);
+  };
+
+  const toggleModal = () => {
+    if (!buttonPressed) {
+      setIsStartModalVisible(!isStartModalVisible);
+      showModalOnFirstRender(); // Call the function here
+    }
+  };
+
+  const showModalOnFirstRender = () => {
+    if (!hasShownStartModal) {
+      setIsStartModalVisible(true);
+      setHasShownStartModal(true);
+    }
+  };
+
+  const [buttonPressed, setButtonPressed] = useState(false);
+
+  // Modal 2
+  const [numberOfColumns, setNumberOfColumns] = useState(2); // Manage in parent component
+  const [isModalColumnAmountVisible, setIsModalColumnAmountVisible] =
+    useState(false);
+  const [columnHeaders, setColumnHeaders] = useState(Array(2).fill(''));
+
+  const handleSetColumnAmount = () => {
+    setIsModalColumnAmountVisible(true);
+  };
+
+  const handleSaveColumnCount = columnCount => {
+    console.log('Column Amount:', columnCount);
+    setNumberOfColumns(columnCount); // Update number of columns
+  };
+
+  // Modal 3
+  const [isHeaderModalVisible, setIsHeaderModalVisible] = useState(false);
+
   const handleSetHeaders = () => {
     setIsHeaderModalVisible(true);
   };
 
-  // Footer navigation
+  const handleSaveHeaders = headers => {
+    setColumnHeaders(headers);
+    console.log('Column Headers:', headers);
+    setIsHeaderModalVisible(false);
+  };
+
+  // Footer
   const handleFooterNavigation = () => {
     navigation.navigate('Home');
   };
@@ -71,49 +95,55 @@ const Spreadsheet = () => {
       {/* Section 1: First button */}
       <View style={styles.spreadSheetNameInput}>
         <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
+          <StartModal
             visible={isStartModalVisible}
-            onRequestClose={() => setIsStartModalVisible(false)}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>Enter Project Name:</Text>
-                <TextInput
-                  style={styles.projectNameInput}
-                  onChangeText={setProjectName}
-                  value={projectName}
-                  placeholder="Type here"
-                />
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={handleSaveProject}>
-                  <Text style={styles.textStyleClose}>Save Project</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
+            setVisible={setIsStartModalVisible}
+            projectName={projectName}
+            setProjectName={setProjectName}
+            setButtonPressed={setButtonPressed}
+            handleRestart={handleRestart}
+            handleSaveProject={handleSaveProject}
+            hasShownStartModal={hasShownStartModal}
+          />
           <Pressable
             style={[styles.button, styles.buttonOpen]}
             onPress={buttonPressed ? handleRestart : toggleModal}>
             <Text style={styles.textStyleClose}>
-              {buttonPressed ? 'Restart' : 'Click to start'}
+              {buttonPressed ? 'Click to Restart' : 'Click to start'}
             </Text>
           </Pressable>
           {!isStartModalVisible && projectName !== '' && (
             <View style={styles.spreadSheetNameInput}>
               <Text style={styles.projectNameReveal}>
-                Your project is called: {projectName}
+                Project Name : {projectName}
               </Text>
             </View>
           )}
-          {hasShownModal ? null : (
+          {hasShownStartModal ? null : (
             <View>{/* Your components that rely on the modal state */}</View>
           )}
         </View>
       </View>
 
-      {/* Section 2: Second button */}
+      {/* Section 2: Set Modal Columns */}
+      {!isStartModalVisible && projectName !== '' && (
+        <View style={styles.spreadSheetNameInput}>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={handleSetColumnAmount}>
+            <Text style={styles.textStyleClose}>Column amount</Text>
+          </Pressable>
+        </View>
+      )}
+      {/* Modal for column amount */}
+      <ColumnAmountModal
+        visible={isModalColumnAmountVisible}
+        setVisible={setIsModalColumnAmountVisible}
+        handleSaveColumnCount={handleSaveColumnCount} // Pass handleSaveColumnCount as a prop
+        handleRestart={handleRestart}
+      />
+
+      {/* Section 3: Set Modal Headers */}
       {!isStartModalVisible && projectName !== '' && (
         <View style={styles.spreadSheetNameInput}>
           <Pressable
@@ -124,7 +154,16 @@ const Spreadsheet = () => {
         </View>
       )}
 
-      {/* Section 3: Footer navigation */}
+      {/* Header Modal */}
+      <HeaderModal
+        visible={isHeaderModalVisible}
+        setVisible={setIsHeaderModalVisible}
+        handleSaveHeaders={handleSaveHeaders}
+        numberOfColumns={numberOfColumns} // Pass number of columns as prop
+        handleRestart={handleRestart}
+      />
+
+      {/* Section 4: Footer navigation */}
       <FooterNav onPress={handleFooterNavigation} title="Home" />
     </View>
   );
