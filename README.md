@@ -18,7 +18,8 @@ When save is pressed assign the name to a variable which will be mapped to the t
 Inputs required:
 
 Step 1: Row quantity
-Step 2: Column quantity
-Step 3: populate the data for this spreadsheet -
+Step 2: Column quantity - ✅
+Step 3: populate the headers for this Columns - ✅
+Step 3: populate the data for the Columns
 Step 4: Push the spreadsheet to google sheets - Throw error with no connection (internet/google if can be specific then great)
 Step 5: Download as an APK
