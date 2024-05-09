@@ -1,17 +1,21 @@
-// SpreadsheetScreen.js
+// Inmports
 import React, {useState} from 'react';
 import {Alert, Text, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+// Navigation
 import FooterNav from '../../components/buttons/footerNav/FooterNav';
+// Modals
 import StartModal from './components/modal/clickToStart/StartModal';
 import HeaderModal from './components/modal/column/columnHeaders/ColumnHeaderModal';
 import ColumnAmountModal from './components/modal/column/columnQuantity/ColumnAmountModal';
 import RowAmountModal from './components/row/rowQuantity/RowAmountModal';
+import RowDataInput from './components/row/rowDataInput/rowDataInput';
+// Stylesheet
 import styles from './SpreadsheetScreen.scss';
 
 const Spreadsheet = () => {
   const navigation = useNavigation();
-  // Modal 1
+  // Modal 1 -> Start project / Restart project
   const [isStartModalVisible, setIsStartModalVisible] = useState(false);
   const [hasShownStartModal, setHasShownStartModal] = useState(false);
   const [projectName, setProjectName] = useState('');
@@ -27,7 +31,7 @@ const Spreadsheet = () => {
   };
 
   const validateProjectName = name => {
-    return name.length >= 2 && name.length <= 10;
+    return name.length >= 2 && name.length <= 20;
   };
 
   const handleRestart = () => {
@@ -57,7 +61,7 @@ const Spreadsheet = () => {
 
   const [buttonPressed, setButtonPressed] = useState(false);
 
-  // Modal 2
+  // Modal 2 -> Column quantity
   const [numberOfColumns, setNumberOfColumns] = useState(2); // Manage in parent component
   const [isModalColumnAmountVisible, setIsModalColumnAmountVisible] =
     useState(false);
@@ -72,7 +76,7 @@ const Spreadsheet = () => {
     setNumberOfColumns(columnCount); // Update number of columns
   };
 
-  // Modal 3
+  // Modal 3 -> Column Header Input
   const [isHeaderModalVisible, setIsHeaderModalVisible] = useState(false);
 
   const handleSetHeaders = () => {
@@ -85,7 +89,7 @@ const Spreadsheet = () => {
     setIsHeaderModalVisible(false);
   };
 
-  //Modal 4
+  // Modal 4 -> Row Amount
   const [isRowAmountModalVisible, setIsRowAmountModalVisible] = useState(false);
   const [rowCount, setRowCount] = useState(1);
 
@@ -94,7 +98,21 @@ const Spreadsheet = () => {
     setIsRowAmountModalVisible(false);
   };
 
-  // Footer
+  // Modal 5 -> Row Data Input
+  // Define state for row data modal
+  const [isRowDataModalVisible, setIsRowDataModalVisible] = useState(false);
+  // State variable to manage the selected column
+  const [selectedColumn, setSelectedColumn] = useState('');
+  const [rowData, setRowData] = useState([]);
+
+  // Function to handle saving row data for the selected column
+  const handleSaveRowData = data => {
+    // Implement logic to save row data for the selected column
+    console.log('Row data for column', selectedColumn, ':', data);
+    // Update row data state
+    setRowData([...rowData, {column: selectedColumn, data}]);
+  };
+
   const handleFooterNavigation = () => {
     navigation.navigate('Home');
   };
@@ -188,7 +206,28 @@ const Spreadsheet = () => {
         handleSaveRowCount={handleSetRowCount}
       />
 
-      {/* Section 5: Footer navigation */}
+      {/* Section 5: Provide Row data */}
+      {!isStartModalVisible && projectName !== '' && (
+        <View style={styles.spreadSheetNameInput}>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => setIsRowDataModalVisible(true)}>
+            <Text style={styles.textStyleClose}>Provide Row Data</Text>
+          </Pressable>
+        </View>
+      )}
+
+      {/* Modal for row data */}
+      <RowDataInput
+        visible={isRowDataModalVisible}
+        setVisible={setIsRowDataModalVisible}
+        handleSaveRowCount={handleSetRowCount}
+        handleSaveRowData={handleSaveRowData} // Pass function to save row data
+        rowAmount={rowCount} // Pass row amount
+        columnHeaders={columnHeaders} // Pass column headers
+      />
+
+      {/* Section 7: Footer navigation */}
       <FooterNav onPress={handleFooterNavigation} title="Home" />
     </View>
   );

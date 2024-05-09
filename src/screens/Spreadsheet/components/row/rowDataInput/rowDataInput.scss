@@ -1,0 +1,95 @@
+/* General styles */
+.container {
+  flex: 1;
+  background-color: #684436;
+  align-items: center; /* Center children horizontally */
+}
+
+/* Section 1 styles */
+.spreadSheetNameInput {
+  flex-direction: row; /* Arrange children side-by-side */
+  align-items: center; /* Align label and input vertically */
+  padding: 10px; /* Optional padding for spacing */
+  justify-content: center;
+}
+
+.centeredView {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalView {
+  background-color: #684436;
+  border-radius: 20px;
+  border-color: white;
+  border-width: 0.25px;
+  padding: 20px;
+  height: 60%;
+  width: 80%; /* Set specific width */
+  justify-content: space-between;
+}
+
+.buttonContainer {
+  flex-direction: row; /* Arrange buttons side-by-side */
+  justify-content: space-between; /* Add space between buttons */
+  width: 100%; /* Set width to match modal width */
+  margin-top: 20px; /* Adjust margin */
+}
+
+.closeButton,
+.saveButton,
+.backButton {
+  width: 40%; /* Set width to 40% */
+  padding: 10px; /* Add padding */
+  border-radius: 20px; /* Add border radius */
+  text-align: center; /* Center text horizontally */
+  justify-content: center; /* Center button content horizontally */
+}
+.saveButton {
+  background-color: green;
+}
+.closeButton {
+  background-color: red; /* Change background color */
+}
+.backButton {
+  background-color: grey; /* Change background color */
+}
+
+.closeButtonText,
+.saveButtonText,
+.backButtonText {
+  text-align: center; /* Center text horizontally */
+  align-items: center; /* Center button content vertically */
+  color: white;
+}
+
+.modalTitle {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+
+.rowDataInput {
+  border-width: 1px;
+  border-radius: 20px;
+  border-color: white;
+  padding: 10px;
+  margin-top: 10px;
+  width: 80%; /* Adjust width */
+  text-align: center;
+}
+
+.rowDataInputsContainer {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.columnTitle {
+  text-align: center;
+}
