@@ -3,9 +3,10 @@ import React, {useState} from 'react';
 import {Alert, Text, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FooterNav from '../../components/buttons/footerNav/FooterNav';
-import StartModal from './components/StartModal';
-import HeaderModal from './components/headerModal/HeaderModal';
-import ColumnAmountModal from './components/ColumnAmountModal';
+import StartModal from './components/modal/clickToStart/StartModal';
+import HeaderModal from './components/modal/column/columnHeaders/ColumnHeaderModal';
+import ColumnAmountModal from './components/modal/column/columnQuantity/ColumnAmountModal';
+import RowAmountModal from './components/row/rowQuantity/RowAmountModal';
 import styles from './SpreadsheetScreen.scss';
 
 const Spreadsheet = () => {
@@ -84,6 +85,15 @@ const Spreadsheet = () => {
     setIsHeaderModalVisible(false);
   };
 
+  //Modal 4
+  const [isRowAmountModalVisible, setIsRowAmountModalVisible] = useState(false);
+  const [rowCount, setRowCount] = useState(1);
+
+  const handleSetRowCount = count => {
+    setRowCount(count);
+    setIsRowAmountModalVisible(false);
+  };
+
   // Footer
   const handleFooterNavigation = () => {
     navigation.navigate('Home');
@@ -160,7 +170,25 @@ const Spreadsheet = () => {
         numberOfColumns={numberOfColumns} // Pass number of columns as prop
       />
 
-      {/* Section 4: Footer navigation */}
+      {/* Section 4: Set Modal Rows */}
+      {!isStartModalVisible && projectName !== '' && (
+        <View style={styles.spreadSheetNameInput}>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => setIsRowAmountModalVisible(true)}>
+            <Text style={styles.textStyleClose}>Row amount</Text>
+          </Pressable>
+        </View>
+      )}
+
+      {/* Modal for row amount */}
+      <RowAmountModal
+        visible={isRowAmountModalVisible}
+        setVisible={setIsRowAmountModalVisible}
+        handleSaveRowCount={handleSetRowCount}
+      />
+
+      {/* Section 5: Footer navigation */}
       <FooterNav onPress={handleFooterNavigation} title="Home" />
     </View>
   );
