@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "457290270580",
+    "project_id": "react-native-utility",
+    "storage_bucket": "react-native-utility.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457290270580:android:af97078ad00790ddca0e21",
+        "android_client_info": {
+          "package_name": "com.spreadthosesheets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457290270580-g0bojajkrj4r1p7tklg9qpbao3e6vesf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spreadthosesheets",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "457290270580-l7ma90n9a6492j347lgkl6fo04jld5u7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXb2yEX1ahbAl_k-m0EzGfP2BOTF7BpNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457290270580-l7ma90n9a6492j347lgkl6fo04jld5u7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
