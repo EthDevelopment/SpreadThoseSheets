@@ -2,7 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {Modal, View, Text, Pressable, TextInput} from 'react-native';
 import styles from './rowDataInput.scss';
 
-const RowDataInput = ({visible, setVisible, rowAmount, columnHeaders}) => {
+const RowDataInput = ({
+  visible,
+  setVisible,
+  rowAmount,
+  columnHeaders,
+  projectName,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [rowData, setRowData] = useState(
     Array(columnHeaders.length).fill(Array(rowAmount).fill('')),
@@ -21,6 +27,35 @@ const RowDataInput = ({visible, setVisible, rowAmount, columnHeaders}) => {
 
     console.log('Row Data:', transposedRowData);
     setVisible(false);
+
+    // Log project details and table
+    console.log('\nYour project is called:', projectName);
+    console.log('with the format of a table\n');
+
+    // Calculate the maximum length of each cell in the table
+    const maxLengths = columnHeaders.map((_, index) =>
+      Math.max(...transposedRowData.map(row => row[index].length)),
+    );
+
+    // Log the header row with evenly spaced vertical bars
+    console.log(
+      columnHeaders
+        .map(
+          (header, index) => header.padEnd(maxLengths[index]), // Pad each header to match the maximum length of its column
+        )
+        .join(' | '),
+    );
+
+    // Log the rows with evenly spaced vertical bars
+    transposedRowData.forEach(row => {
+      console.log(
+        row
+          .map(
+            (cell, index) => cell.padEnd(maxLengths[index]), // Pad each cell to match the maximum length of its column
+          )
+          .join(' | '),
+      );
+    });
   };
 
   const handleNext = () => {

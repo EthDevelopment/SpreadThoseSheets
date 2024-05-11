@@ -225,6 +225,7 @@ const Spreadsheet = () => {
         handleSaveRowData={handleSaveRowData} // Pass function to save row data
         rowAmount={rowCount} // Pass row amount
         columnHeaders={columnHeaders} // Pass column headers
+        projectName={projectName} // Pass project name
       />
 
       {/* Section 7: Footer navigation */}
