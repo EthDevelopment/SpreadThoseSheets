@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Modal, View, Text, Pressable, TextInput} from 'react-native';
-import styles from '../SpreadsheetScreen.scss';
+import styles from './../../../../SpreadsheetScreen.scss';
 
 const ColumnAmountModal = ({visible, setVisible, handleSaveColumnCount}) => {
   const [numberOfColumnsModal, setNumberOfColumnsModal] = useState(2);
@@ -28,7 +28,8 @@ const ColumnAmountModal = ({visible, setVisible, handleSaveColumnCount}) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}>
-            By default, your spreadsheet will have 2 columns. Do you want more?
+            By default, your spreadsheet will have 2 columns. Change the value
+            if you want more.
           </Text>
           <TextInput
             style={styles.projectNameInput}

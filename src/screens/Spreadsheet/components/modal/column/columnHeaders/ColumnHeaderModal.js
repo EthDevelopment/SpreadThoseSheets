@@ -7,7 +7,7 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import styles from './HeaderModal.scss';
+import styles from './ColumnHeaderModal.scss';
 
 const HeaderModal = ({
   visible,

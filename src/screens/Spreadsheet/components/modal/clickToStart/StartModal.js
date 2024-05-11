@@ -1,7 +1,7 @@
 // StartModal.js
 import React from 'react';
 import {Modal, View, Text, Pressable, TextInput} from 'react-native';
-import styles from '../SpreadsheetScreen.scss';
+import styles from '../../../SpreadsheetScreen.scss';
 
 const StartModal = ({
   visible,
