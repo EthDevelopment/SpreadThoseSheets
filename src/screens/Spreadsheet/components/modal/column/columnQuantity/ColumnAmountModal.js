@@ -5,10 +5,13 @@ import styles from './../../../../SpreadsheetScreen.scss';
 const ColumnAmountModal = ({visible, setVisible, handleSaveColumnCount}) => {
   const [numberOfColumnsModal, setNumberOfColumnsModal] = useState(2);
 
-  //   const handleSaveColumnCount = columnCount => {
-  //     console.log('Column Amount:', columnCount);
-  //     setNumberOfColumns(columnCount); // Update number of columns
-  //   };
+  const handleKeyPress = event => {
+    // Check if the Enter key was pressed
+    if (event.nativeEvent.key === 'Enter') {
+      // Call the handleSaveColumnCountPress function
+      handleSaveColumnCountPress();
+    }
+  };
 
   const handleSaveColumnCountPress = async () => {
     // Wait for the save button to be pressed
@@ -40,6 +43,8 @@ const ColumnAmountModal = ({visible, setVisible, handleSaveColumnCount}) => {
             }}
             value={numberOfColumnsModal.toString()}
             placeholder="Enter number of columns"
+            onSubmitEditing={handleSaveColumnCountPress} // Call handleSaveColumnCountPress when Enter is pressed
+            blurOnSubmit={false} // Prevent dismissing keyboard when Enter is pressed
           />
           <Pressable
             style={[styles.button, styles.buttonClose]}
