@@ -26,7 +26,7 @@ const Spreadsheet = () => {
       setIsStartModalVisible(false);
       setButtonPressed(true); // Set button pressed state
     } else {
-      Alert.alert('Error', 'Project name must be between 2 and 10 characters.');
+      Alert.alert('Error', 'Project name must be between 2 and 20 characters.');
     }
   };
 

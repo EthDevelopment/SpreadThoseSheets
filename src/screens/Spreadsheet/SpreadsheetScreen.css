@@ -38,6 +38,7 @@
 .spreadSheetNameInput .projectNameReveal {
   /* New style for the label */
   text-align: center; /* Center the text horizontally */
+  color: white;
 }
 
 .modalView {
@@ -74,7 +75,7 @@
 }
 
 .text {
-  color: green;
+  color: white;
   font-weight: bold;
   text-align: center;
 }
