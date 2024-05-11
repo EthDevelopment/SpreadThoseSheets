@@ -17,6 +17,14 @@ const RowAmountModal = ({visible, setVisible, handleSaveRowCount}) => {
     }
   };
 
+  const handleKeyPress = event => {
+    // Check if the Enter key was pressed
+    if (event.nativeEvent.key === 'Enter') {
+      // Call the handleSave function
+      handleSave();
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -33,6 +41,8 @@ const RowAmountModal = ({visible, setVisible, handleSaveRowCount}) => {
               value={rowCount}
               keyboardType="numeric"
               placeholder="Enter number of rows"
+              onSubmitEditing={handleSave} // Call handleSave when Enter is pressed
+              blurOnSubmit={false} // Prevent dismissing keyboard when Enter is pressed
             />
           </View>
 
