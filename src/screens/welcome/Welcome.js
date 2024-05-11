@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import styles from './Welcome.scss';
+import GoogleSignInButton from '../login/GoogleSignin';
 
 const Welcome = ({showWelcome, onUsernameSubmit}) => {
   const [username, setUsername] = useState('');
@@ -35,7 +36,7 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
             <TextInput
               style={styles.input}
               placeholder="What's your name?"
-              placeholderTextColor="black"
+              placeholderTextColor="white"
               onChangeText={text => {
                 setUsername(text);
                 // Check for empty username and set error message if needed
@@ -63,6 +64,9 @@ const Welcome = ({showWelcome, onUsernameSubmit}) => {
           <Text style={styles.errorText}>{errorMessage}</Text>
         </View>
       )}
+      <View>
+        <GoogleSignInButton />
+      </View>
     </>
   );
 };
