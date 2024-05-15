@@ -8,6 +8,7 @@ const RowDataInput = ({
   rowAmount,
   columnHeaders,
   projectName,
+  handleSaveRowData, // Add handleSaveRowData as a prop
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [rowData, setRowData] = useState(
@@ -62,7 +63,9 @@ const RowDataInput = ({
     if (currentIndex < columnHeaders.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      handleSave();
+      // Save row data here
+      handleSaveRowData(rowData.map(row => row[0])); // Assuming you want to save only the first column data
+      handleSave(); // Proceed or save accordingly
     }
   };
 

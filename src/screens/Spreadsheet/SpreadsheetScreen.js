@@ -1,4 +1,4 @@
-// Inmports
+// Imports
 import React, {useState} from 'react';
 import {Alert, Text, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -10,6 +10,8 @@ import HeaderModal from './components/modal/column/columnHeaders/ColumnHeaderMod
 import ColumnAmountModal from './components/modal/column/columnQuantity/ColumnAmountModal';
 import RowAmountModal from './components/row/rowQuantity/RowAmountModal';
 import RowDataInput from './components/row/rowDataInput/rowDataInput';
+import {createSpreadsheet} from '../../components/services/GoogleSheetsService';
+
 // Stylesheet
 import styles from './SpreadsheetScreen.scss';
 
@@ -107,10 +109,34 @@ const Spreadsheet = () => {
 
   // Function to handle saving row data for the selected column
   const handleSaveRowData = data => {
-    // Implement logic to save row data for the selected column
+    console.log('Received row data:', data); // Add this line to check if data is received
     console.log('Row data for column', selectedColumn, ':', data);
-    // Update row data state
     setRowData([...rowData, {column: selectedColumn, data}]);
+  };
+
+  // Modal 6 -> Create Spreadsheet
+
+  const handleCreateSpreadsheet = async () => {
+    try {
+      // Hardcoded access token
+      const accessToken =
+
+      const formattedRowData = rowData.map(row => row.data);
+      // Pass the specified column count and row count
+      const spreadsheetId = await createSpreadsheet(
+        numberOfColumns,
+        rowCount,
+        columnHeaders,
+        formattedRowData,
+        accessToken,
+        projectName,
+      );
+      console.log('Spreadsheet created with ID:', spreadsheetId);
+      Alert.alert('Spreadsheet created successfully!');
+    } catch (error) {
+      console.error('Error creating spreadsheet:', error);
+      Alert.alert('Error', 'Failed to create spreadsheet');
+    }
   };
 
   const handleFooterNavigation = () => {
@@ -221,12 +247,22 @@ const Spreadsheet = () => {
       <RowDataInput
         visible={isRowDataModalVisible}
         setVisible={setIsRowDataModalVisible}
-        handleSaveRowCount={handleSetRowCount}
-        handleSaveRowData={handleSaveRowData} // Pass function to save row data
-        rowAmount={rowCount} // Pass row amount
-        columnHeaders={columnHeaders} // Pass column headers
-        projectName={projectName} // Pass project name
+        handleSaveRowData={handleSaveRowData} // Pass handleSaveRowData as a prop
+        rowAmount={rowCount}
+        columnHeaders={columnHeaders}
+        projectName={projectName}
       />
+
+      {/* Section 6: Create Spreadsheet Button */}
+      {!isStartModalVisible && projectName !== '' && (
+        <View style={styles.spreadSheetNameInput}>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={handleCreateSpreadsheet}>
+            <Text style={styles.textStyleClose}>Create Spreadsheet</Text>
+          </Pressable>
+        </View>
+      )}
 
       {/* Section 7: Footer navigation */}
       <FooterNav onPress={handleFooterNavigation} title="Home" />
