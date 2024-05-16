@@ -22,7 +22,7 @@ async function createSpreadsheet(
         properties: {
           title: 'Sheet1', // Title of the first sheet
           gridProperties: {
-            rowCount: rowCount + 1, // Add 1 for the header row
+            rowCount: rowCount + 2, // Add 1 for the header row
             columnCount: columnCount, // Number of columns
           },
         },

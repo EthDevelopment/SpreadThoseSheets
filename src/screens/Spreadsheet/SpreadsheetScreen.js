@@ -107,21 +107,30 @@ const Spreadsheet = () => {
   const [selectedColumn, setSelectedColumn] = useState('');
   const [rowData, setRowData] = useState([]);
 
+  const handleSelectColumn = columnHeader => {
+    setSelectedColumn(columnHeader);
+    setIsRowDataModalVisible(true);
+  };
+
   // Function to handle saving row data for the selected column
   const handleSaveRowData = data => {
-    console.log('Received row data:', data); // Add this line to check if data is received
+    console.log('Received row data:', data);
     console.log('Row data for column', selectedColumn, ':', data);
     setRowData([...rowData, {column: selectedColumn, data}]);
   };
 
   // Modal 6 -> Create Spreadsheet
-
   const handleCreateSpreadsheet = async () => {
     try {
       // Hardcoded access token
       const accessToken =
+        'ya29.a0AXooCgsfO-7Va23Ut7fXk3862jUbjq-jxKf9scuMMdmGd1F9i_q3x521GdX50fDX48Wy1aFtsUBQol555U3owcZna8Ww1XinCRr9t-O89KOPPdlNFzRNfHksFUSrPaSjp9FDrcHvu1wdWD1okthbEiIhQ9FPuJYg8fZNaCgYKAdESARISFQHGX2Mile92bK3vMC5G10tlGfvpIw0171';
 
-      const formattedRowData = rowData.map(row => row.data);
+      // Ensure rowData is an array of arrays
+      const formattedRowData = rowData.map(row =>
+        row.data.map(cell => cell.value),
+      );
+
       // Pass the specified column count and row count
       const spreadsheetId = await createSpreadsheet(
         numberOfColumns,
@@ -247,10 +256,11 @@ const Spreadsheet = () => {
       <RowDataInput
         visible={isRowDataModalVisible}
         setVisible={setIsRowDataModalVisible}
-        handleSaveRowData={handleSaveRowData} // Pass handleSaveRowData as a prop
+        handleSaveRowData={handleSaveRowData}
         rowAmount={rowCount}
         columnHeaders={columnHeaders}
         projectName={projectName}
+        selectedColumn={selectedColumn} // Pass selected column
       />
 
       {/* Section 6: Create Spreadsheet Button */}

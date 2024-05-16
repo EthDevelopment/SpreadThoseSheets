@@ -21,6 +21,8 @@ const RowDataInput = ({
   }, [rowAmount, columnHeaders]);
 
   const handleSave = () => {
+    handleSaveRowData(rowData);
+    setVisible(false);
     // Transpose rowData array
     const transposedRowData = rowData[0].map((_, colIndex) =>
       rowData.map(row => row[colIndex]),
@@ -79,7 +81,7 @@ const RowDataInput = ({
 
   const handleInputChange = (text, rowIndex) => {
     const updatedRowData = [...rowData];
-    updatedRowData[currentIndex] = [...rowData[currentIndex]];
+    updatedRowData[currentIndex] = [...updatedRowData[currentIndex]];
     updatedRowData[currentIndex][rowIndex] = text;
     setRowData(updatedRowData);
   };
