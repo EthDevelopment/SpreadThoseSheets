@@ -8,6 +8,7 @@ const RowDataInput = ({
   rowAmount,
   columnHeaders,
   projectName,
+  handleSaveRowData, // Add handleSaveRowData as a prop
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [rowData, setRowData] = useState(
@@ -20,6 +21,8 @@ const RowDataInput = ({
   }, [rowAmount, columnHeaders]);
 
   const handleSave = () => {
+    handleSaveRowData(rowData);
+    setVisible(false);
     // Transpose rowData array
     const transposedRowData = rowData[0].map((_, colIndex) =>
       rowData.map(row => row[colIndex]),
@@ -62,7 +65,9 @@ const RowDataInput = ({
     if (currentIndex < columnHeaders.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      handleSave();
+      // Save row data here
+      handleSaveRowData(rowData.map(row => row[0])); // Assuming you want to save only the first column data
+      handleSave(); // Proceed or save accordingly
     }
   };
 
@@ -76,7 +81,7 @@ const RowDataInput = ({
 
   const handleInputChange = (text, rowIndex) => {
     const updatedRowData = [...rowData];
-    updatedRowData[currentIndex] = [...rowData[currentIndex]];
+    updatedRowData[currentIndex] = [...updatedRowData[currentIndex]];
     updatedRowData[currentIndex][rowIndex] = text;
     setRowData(updatedRowData);
   };
